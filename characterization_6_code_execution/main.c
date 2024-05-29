@@ -89,7 +89,8 @@ int main(void) {
 	// Clear PC11
 	gpio_clear(GPIOC, GPIO11);
 
-
+	usart_send_string("!RST");
+	
 	// Hack to make sure success_function doesn't get removed
 	volatile bool always_true = 1;
 	while(always_true) {

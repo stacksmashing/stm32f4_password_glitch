@@ -46,6 +46,7 @@ void glitch_loop() {
 	} else {
 		usart_send_string("!SUC");
 	}
+
 	while(1) {
 		
 	}
@@ -64,6 +65,8 @@ int main(void) {
 
 	// Clear PC11
 	gpio_clear(GPIOC, GPIO11);
+
+	usart_send_string("!RST");
 
 	while(1) {
 		glitch_loop();
