@@ -16,6 +16,9 @@ void glitch_loop(void);
 void success_function(void);
 void glitchable(void);
 
+#pragma GCC push_options
+#pragma GCC optimize("O0")
+
 void success_function(void) {
 	usart_send_string("!SUC");	
 }
@@ -47,6 +50,7 @@ void glitch_loop() {
 	}
 }
 
+#pragma GCC pop_options
 
 int main(void) {
 	// Uncomment to enable USART on PA9 (TX) and PA10 (RX)
