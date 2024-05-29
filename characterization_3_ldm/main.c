@@ -17,31 +17,36 @@ void glitch_loop(void);
 void glitch_loop() {
     uint32_t check_constant = 0x12345678;
   
-    uint32_t register_output[6] = {0};
+    uint32_t register_output[8] = {0};
 	// Trigger signal
 	TRIGGER
 
 	__asm volatile(
         "mov r0, #0\n"
+		"mov r1, #0\n"
+		"mov r2, #0\n"
+		"mov r3, #0\n"
+		"mov r4, #0\n"
+		"mov r5, #0\n"
         // "mov r1, #0\n"
         "nop; nop; nop; nop; nop; nop; nop; nop; nop; nop;"
 		"nop; nop; nop; nop; nop; nop; nop; nop; nop; nop;"
 		"nop; nop; nop; nop; nop; nop; nop; nop; nop; nop;"
-        "ldm %[check_constant_address], {r0}\n"
+        "ldm %1, {r0}\n"
         "nop; nop; nop; nop; nop; nop; nop; nop; nop; nop;"
 		"nop; nop; nop; nop; nop; nop; nop; nop; nop; nop;"
 		"nop; nop; nop; nop; nop; nop; nop; nop; nop; nop;"
 
-        "stm %0, {r0-r5}\n"
+        "stm %0, {r0-r7}\n"
         :                            // No outputs
-        : [register_output] "r" (register_output), [check_constant_address] "r" (&check_constant)      // Input operands
-        :  "r0", "r1",  "memory"             // Clobber list, r1 is modified, memory is affected
+        : "r" (register_output), "r" (&check_constant)      // Input operands
+        :  "r0", "r1", "r2", "r3", "r4", "r5",  "memory"             // Clobber list, r1 is modified, memory is affected
     );
+
 	TRIGGER
 
-    if((register_output[1] == 0x12345678) || (register_output[2] == 0x12345678) || (register_output[3] == 0x12345678) || (register_output[4] == 0x12345678) || (register_output[5] == 0x12345678)) {
+    if((register_output[2] == 0x12345678) || (register_output[3] == 0x12345678) || (register_output[4] == 0x12345678) || (register_output[5] == 0x12345678)) {
       usart_send_string("!SUC");
-
     } else if(register_output[0] != 0x12345678) {
       usart_send_string("!SKI");
     } else {

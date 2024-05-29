@@ -35,7 +35,7 @@ void glitch_loop() {
         "stm %0, {r0-r5}\n"
         :                            // No outputs
         : [register_output] "r" (register_output), [check_constant_address] "r" (&check_constant)      // Input operands
-        :  "r0", "r1",  "memory"             // Clobber list, r1 is modified, memory is affected
+        :  "r0", "r1", "r2", "r3", "r4", "r5", "memory"             // Clobber list, r1 is modified, memory is affected
     );
 	TRIGGER
 
