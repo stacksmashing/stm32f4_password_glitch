@@ -20,7 +20,7 @@ void usart_setup(void) {
     usart_set_baudrate(USART, 115200);
     usart_set_databits(USART, 8);
     usart_set_stopbits(USART, USART_STOPBITS_1);
-    usart_set_mode(USART, USART_MODE_TX);
+    usart_set_mode(USART, USART_MODE_TX_RX);
     usart_set_parity(USART, USART_PARITY_NONE);
     usart_set_flow_control(USART, USART_FLOWCONTROL_NONE);
 
@@ -43,4 +43,10 @@ void usart_send_string(const char *str) {
 		while(!usart_get_flag(USART, USART_SR_TC));
         str++;
     }
+}
+
+void usart_read_blocking(uint32_t usart, char *buffer, size_t buffer_len) {
+	for(size_t i = 0; i < buffer_len; i++) {
+		buffer[i] = usart_recv_blocking(usart);
+	}
 }

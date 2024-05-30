@@ -1,8 +1,8 @@
-PROJECT = characterization_5_lr_fiddling
+PROJECT = 2_password_check_countermeasure
 BUILD_DIR = bin
 
 SHARED_DIR = ../common-code
-CFILES = main.c
+CFILES = sha256.c main.c
 CFILES += api.c
 AFILES += api-asm.S
 

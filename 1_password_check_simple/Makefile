@@ -1,8 +1,8 @@
-PROJECT = characterization_6_code_execution
+PROJECT = 1_password_check_simple
 BUILD_DIR = bin
 
 SHARED_DIR = ../common-code
-CFILES = main.c
+CFILES = sha256.c main.c
 CFILES += api.c
 AFILES += api-asm.S
 
